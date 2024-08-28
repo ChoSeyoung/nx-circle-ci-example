@@ -15,7 +15,7 @@ jobs:
           name: Install dependencies
           command: npm ci
 
-  build:
+  build-ex-item:
     executor: node-executor
     steps:
       - checkout
@@ -24,9 +24,32 @@ jobs:
           command: npm ci
       - run:
           name: Build the project
-          command: npx nx build nx-circle-ci-example
+          command: npx nx build ex-item
 
-  test:
+  build-ex-shared:
+    executor: node-executor
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm ci
+      - run:
+          name: Build the project
+          command: npx nx build ex-shared
+
+
+  build-ex-uer:
+    executor: node-executor
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm ci
+      - run:
+          name: Build the project
+          command: npx nx build ex-user
+
+  test-ex-item:
     executor: node-executor
     steps:
       - checkout
@@ -35,7 +58,29 @@ jobs:
           command: npm ci
       - run:
           name: Run tests
-          command: npx nx test nx-circle-ci-example
+          command: npx nx test ex-item
+
+  test-ex-shared:
+    executor: node-executor
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm ci
+      - run:
+          name: Run tests
+          command: npx nx test ex-shared
+
+  test-ex-user:
+    executor: node-executor
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm ci
+      - run:
+          name: Run tests
+          command: npx nx test ex-user
 
 workflows:
   version: 2
