@@ -42,3 +42,6 @@ CircleCI는 이를 자동으로 감지하고 파이프라인을 실행합니다.
 CircleCI 대시보드에서 빌드 상태를 확인할 수 있습니다. 
 
 빌드가 성공적으로 완료되었는지, 실패했는지 확인할 수 있으며, 만약 실패했다면 로그를 통해 문제를 파악할 수 있습니다.
+
+## 빌드 성공
+![assets/build_success.png](assets/build_success.png)
