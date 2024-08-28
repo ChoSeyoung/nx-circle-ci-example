@@ -35,11 +35,7 @@
       "options": {
         "targetName": "test"
       },
-      "exclude": [
-        "apps/ex-shared-e2e/**/*",
-        "apps/ex-item-e2e/**/*",
-        "apps/ex-user-e2e/**/*"
-      ]
+      "exclude": []
     }
   ]
 }

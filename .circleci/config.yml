@@ -1,35 +1,46 @@
 version: 2.1
 
-orbs:
-  nx: nrwl/nx@1.6.2
+executors:
+  node-executor:
+    docker:
+      - image: circleci/node:18
+    working_directory: ~/repo
 
 jobs:
-  main:
-    docker:
-      - image: cimg/node:lts-browsers
+  install:
+    executor: node-executor
     steps:
       - checkout
-      
-      
+      - run:
+          name: Install dependencies
+          command: npm ci
 
+  build:
+    executor: node-executor
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm ci
+      - run:
+          name: Build the project
+          command: npx nx build nx-circle-ci-example
 
-      # This enables task distribution via Nx Cloud
-      # Run this command as early as possible, before dependencies are installed
-      # Learn more at https://nx.dev/ci/reference/nx-cloud-cli#npx-nxcloud-startcirun
-      - run: npx nx-cloud start-ci-run --distribute-on="3 linux-medium-js" --stop-agents-after="build"
-      
-      - run: npm ci --legacy-peer-deps
-      - nx/set-shas:
-          main-branch-name: 'main'
-
-      # Prepend any command with "nx-cloud record --" to record its logs to Nx Cloud
-      # - run: npx nx-cloud record -- echo Hello World
-      # Nx Affected runs only tasks affected by the changes in this PR/commit. Learn more: https://nx.dev/ci/features/affected
-      - run: npx nx affected --base=$NX_BASE --head=$NX_HEAD -t lint test build
+  test:
+    executor: node-executor
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm ci
+      - run:
+          name: Run tests
+          command: npx nx test nx-circle-ci-example
 
 workflows:
   version: 2
-
-  ci:
+  build_and_test:
     jobs:
-      - main
+      - install
+      - build
+      - test
