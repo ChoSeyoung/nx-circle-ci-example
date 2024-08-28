@@ -1,16 +1,45 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "namedInputs": {
-    "default": [
-      "{projectRoot}/**/*",
-      "sharedGlobals"
-    ],
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
     "production": [
-      "default"
+      "default",
+      "!{projectRoot}/.eslintrc.json",
+      "!{projectRoot}/eslint.config.js",
+      "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
+      "!{projectRoot}/tsconfig.spec.json",
+      "!{projectRoot}/jest.config.[jt]s",
+      "!{projectRoot}/src/test-setup.[jt]s",
+      "!{projectRoot}/test-setup.[jt]s"
     ],
-    "sharedGlobals": [
-      "{workspaceRoot}/.circleci/config.yml"
-    ]
+    "sharedGlobals": ["{workspaceRoot}/.circleci/config.yml"]
   },
-  "nxCloudAccessToken": "NjE5ODk4YWItYzgxOS00MmRmLWIxNzYtMjI5ODUzZjFjMzJlfHJlYWQtd3JpdGU="
+  "nxCloudAccessToken": "NjE5ODk4YWItYzgxOS00MmRmLWIxNzYtMjI5ODUzZjFjMzJlfHJlYWQtd3JpdGU=",
+  "plugins": [
+    {
+      "plugin": "@nx/webpack/plugin",
+      "options": {
+        "buildTargetName": "build",
+        "serveTargetName": "serve",
+        "previewTargetName": "preview"
+      }
+    },
+    {
+      "plugin": "@nx/eslint/plugin",
+      "options": {
+        "targetName": "lint"
+      }
+    },
+    {
+      "plugin": "@nx/jest/plugin",
+      "options": {
+        "targetName": "test"
+      },
+      "exclude": [
+        "apps/ex-shared-e2e/**/*",
+        "apps/ex-item-e2e/**/*",
+        "apps/ex-user-e2e/**/*"
+      ]
+    }
+  ]
 }

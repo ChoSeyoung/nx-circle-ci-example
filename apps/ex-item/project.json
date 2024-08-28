@@ -1,0 +1,26 @@
+{
+  "name": "ex-item",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/ex-item/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "dependsOn": ["build"],
+      "options": {
+        "buildTarget": "ex-item:build",
+        "runBuildTargetDependencies": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "ex-item:build:development"
+        },
+        "production": {
+          "buildTarget": "ex-item:build:production"
+        }
+      }
+    }
+  }
+}
