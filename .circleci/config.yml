@@ -38,7 +38,7 @@ jobs:
           command: npx nx build ex-shared
 
 
-  build-ex-uer:
+  build-ex-user:
     executor: node-executor
     steps:
       - checkout
