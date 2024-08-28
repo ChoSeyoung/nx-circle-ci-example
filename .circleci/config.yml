@@ -87,5 +87,9 @@ workflows:
   build_and_test:
     jobs:
       - install
-      - build
-      - test
+      - build-ex-item
+      - build-ex-shared
+      - build-ex-user
+      - test-ex-item
+      - test-ex-shared
+      - test-ex-user
